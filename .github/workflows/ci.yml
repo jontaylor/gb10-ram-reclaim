@@ -1,0 +1,15 @@
+name: Host checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit tests and shell syntax (no hardware changes)
+        run: make test
+      - name: Disposable module-key workflow (no enrollment)
+        run: sudo python3 -m unittest discover -s tests -p test_key_workflow.py -v
+      - name: Check public tree
+        run: python3 tools/check_public_tree.py

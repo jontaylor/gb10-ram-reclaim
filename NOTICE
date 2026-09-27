@@ -1,0 +1,37 @@
+Original project source and documentation: GPL-2.0-only, unless otherwise noted.
+Developed by OpenAI Codex in collaboration with Jon Taylor. Attribution is not
+an assertion of OpenAI ownership, endorsement, or a support commitment.
+
+The discovery that GB10 display-reserved memory can be made usable by CUDA was
+published by emihuang (emi), GitHub coolbho3k:
+https://forums.developer.nvidia.com/t/383583/1
+https://github.com/coolbho3k/DeepSeek-v4.1-Flash-2x-DGX-Spark
+Their allocator is referenced as inspiration; its source is not vendored here.
+
+The NVIDIA patch applies to MIT-licensed files in NVIDIA's open GPU kernel
+modules, version 580.173.02, commit 20e4e6e19cc26ba47b5cbe23130a396be100c427.
+The small guard additions in patches/nvidia-580.173.02-headless-guard.patch are
+provided under MIT, matching the upstream files. Upstream copyright notices:
+Copyright (c) 1999-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2023-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+NVIDIA source fetched by the build retains its own upstream licenses and is
+not included in this repository. Linux interfaces and reviewed implementation
+are from the GPL-2.0 Linux kernel and Ubuntu's corresponding source package.

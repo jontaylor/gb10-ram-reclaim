@@ -1,0 +1,39 @@
+diff --git a/kernel-open/nvidia/nv.c b/kernel-open/nvidia/nv.c
+index 385a0df..a81f053 100644
+--- a/kernel-open/nvidia/nv.c
++++ b/kernel-open/nvidia/nv.c
+@@ -6310,3 +6310,10 @@ void NV_API_CALL nv_get_screen_info(
+ 
+ module_init(nvidia_init_module);
+ module_exit(nvidia_exit_module);
++
++/* Explicit-load-only headless memory experiment. The reclamation helper holds
++ * this exported marker's module reference so this guarded driver cannot be
++ * unloaded while reclaimed pages are owned by Linux. */
++NvBool gb10_display_carveout_disabled(void);
++NvBool gb10_display_carveout_disabled(void) { return NV_TRUE; }
++EXPORT_SYMBOL_GPL(gb10_display_carveout_disabled);
+diff --git a/src/nvidia/src/kernel/gpu/mem_mgr/arch/blackwell/mem_mgr_gb10b_phys.c b/src/nvidia/src/kernel/gpu/mem_mgr/arch/blackwell/mem_mgr_gb10b_phys.c
+index 7127876..7ba4504 100644
+--- a/src/nvidia/src/kernel/gpu/mem_mgr/arch/blackwell/mem_mgr_gb10b_phys.c
++++ b/src/nvidia/src/kernel/gpu/mem_mgr/arch/blackwell/mem_mgr_gb10b_phys.c
+@@ -184,6 +184,9 @@ memmgrAllocScanoutCarveoutRegionResources_GB10B
+     MEMORY_DESCRIPTOR *pMemDesc
+ )
+ {
++    /* Explicit-load-only headless experiment: never allocate display carveout. */
++    return NV_ERR_NOT_SUPPORTED;
++
+     OBJEHEAP *pHeap = pMemoryManager->pScanoutHeap;
+     NvU64 alignment = pAllocData->alignment;
+     NvU64 offset = pAllocData->offset;
+@@ -230,6 +233,9 @@ memmgrAllocFromScanoutCarveoutRegion_GB10B
+     PMEMORY_DESCRIPTOR *ppMemDesc
+ )
+ {
++    /* Explicit-load-only headless experiment: never allocate display carveout. */
++    return NV_ERR_NOT_SUPPORTED;
++
+     MemorySystem        *pMemorySystem = GPU_GET_MEMORY_SYSTEM(pGpu);
+     MEMORY_DESCRIPTOR   *pMemDesc = NULL;
+     OBJEHEAP            *pHeap = pMemoryManager->pScanoutHeap;
