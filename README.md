@@ -1,3 +1,10 @@
+# 23rd October 2026 Update
+
+There is now a firmware update that allows reducing the memory reservation to just 0.5GB.
+
+Therefore I now recommend using that firmware feature over this repository, the
+additional gain is only 500mb.
+
 # GB10 RAM reclaim
 
 An experimental, manually activated way to return the **2046 MiB display
